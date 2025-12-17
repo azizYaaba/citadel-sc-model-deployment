@@ -2,7 +2,7 @@ from __future__ import annotations
 import mlflow
 from mlflow.tracking import MlflowClient
 
-EXPERIMENT_NAME="ModelDeployment-Lab"
+EXPERIMENT_NAME="ModelDeployment-CITADEL-SC"
 MODEL_NAME="IrisClassifier"
 
 def main():

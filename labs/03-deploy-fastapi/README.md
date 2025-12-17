@@ -11,7 +11,7 @@ uvicorn app:app --reload --port 8000
 
 ## Tester
 ```bash
-python client_test.py
+python labs/03-deploy-fastapi/client_test.py
 ```
 
 Swagger: http://127.0.0.1:8000/docs

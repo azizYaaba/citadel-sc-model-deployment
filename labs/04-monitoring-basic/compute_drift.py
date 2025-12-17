@@ -2,6 +2,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import pandas as pd
+
+import sys
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+sys.path.append(str(ROOT_DIR))
 from shared.data import make_split, FEATURE_COLUMNS
 from shared.metrics import mean_drift
 
@@ -15,7 +21,7 @@ def read_events(p: Path) -> pd.DataFrame:
 
 def main():
     ref=make_split().X_train.copy()
-    p=Path("../03-deploy-fastapi/feedback/events.jsonl").resolve()
+    p=Path("labs/03-deploy-fastapi/feedback/events.jsonl").resolve()
     if not p.exists():
         raise FileNotFoundError(f"{p} introuvable. Lancez l'API + generate_traffic.py.")
     cur=read_events(p)[FEATURE_COLUMNS].copy()

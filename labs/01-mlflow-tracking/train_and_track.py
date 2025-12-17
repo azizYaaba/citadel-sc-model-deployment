@@ -8,9 +8,16 @@ import mlflow.sklearn
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score, ConfusionMatrixDisplay
+import sys
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+sys.path.append(str(ROOT_DIR))
+
 from shared.data import make_split, FEATURE_COLUMNS
 
-EXPERIMENT_NAME="ModelDeployment-Lab"
+EXPERIMENT_NAME="ModelDeployment-CITADEL-SC"
+MODEL_NAME="IrisClassifier"
 ARTIFACT_DIR=Path("artifacts")
 ARTIFACT_DIR.mkdir(exist_ok=True)
 
@@ -40,6 +47,7 @@ def run_rf(n_estimators: int, max_depth, seed: int):
     mp=ARTIFACT_DIR/f"rf_{n_estimators}_{max_depth}.joblib"; joblib.dump(m, mp)
     return m, metrics, cm, mp
 
+
 def main():
     mlflow.set_experiment(EXPERIMENT_NAME)
     runs=[("logreg",{"C":0.5,"seed":42}),("logreg",{"C":1.0,"seed":42}),("rf",{"n_estimators":200,"max_depth":None,"seed":42}),("rf",{"n_estimators":200,"max_depth":5,"seed":42})]
@@ -56,7 +64,7 @@ def main():
             mlflow.log_metrics(metrics)
             mlflow.log_artifact(str(cm), artifact_path="plots")
             mlflow.log_artifact(str(mp), artifact_path="models_raw")
-            mlflow.sklearn.log_model(model, artifact_path="model")
+            mlflow.sklearn.log_model(model, name=MODEL_NAME)
     print("✅ Terminé. Ouvrez MLflow UI pour comparer.")
 if __name__=="__main__":
     main()

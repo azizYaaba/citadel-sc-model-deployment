@@ -10,7 +10,7 @@ Objectifs:
 
 ## Installation
 ```bash
-cd mlops-model-deployment-labs
+cd citadel-sc-model-deployment
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -18,7 +18,9 @@ pip install -r requirements.txt
 
 ## Démarrer MLflow UI
 ```bash
-mlflow ui --backend-store-uri sqlite:///mlruns.db --default-artifact-root ./mlruns_artifacts
+mlflow ui \
+  --backend-store-uri sqlite:///mlflow.db \
+  --default-artifact-root ./mlruns
 # UI: http://127.0.0.1:5000
 ```
 

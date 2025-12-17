@@ -5,13 +5,12 @@ Avoir des runs (Lab 01).
 
 ## Enregistrer le meilleur run (accuracy max)
 ```bash
-cd labs/02-model-registry
-python register_best_model.py
+python labs/02-model-registry/register_best_model.py
 ```
 
 Ensuite dans MLflow UI → **Models**: promouvoir en **Staging** puis **Production**.
 
-## Bonus: promouvoir en CLI
+## Promouvoir en CLI
 ```bash
-python promote_model.py --version 1 --stage Production
+python labs/02-model-registry/promote_model.py --version 1 --stage Production
 ```
