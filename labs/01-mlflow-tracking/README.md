@@ -1,7 +1,7 @@
 # Lab 01 — MLflow Tracking : entraîner, logger, comparer
 
-## Lancer si vous ne l'avez pas déja fait 
-1) Terminal 1:
+## Lancer 
+1) Terminal 1: (si vous ne l'avez pas déja fait en lisant le ReadMe à la racine)
 ```bash
 mlflow ui \
   --backend-store-uri sqlite:///mlflow.db \
