@@ -11,10 +11,13 @@ from sklearn.metrics import accuracy_score, f1_score, ConfusionMatrixDisplay
 import sys
 from pathlib import Path
 
+
 ROOT_DIR = Path(__file__).resolve().parents[2]
 sys.path.append(str(ROOT_DIR))
 
 from shared.data import make_split, FEATURE_COLUMNS
+from shared.mlflow_config import setup_mlflow
+
 
 EXPERIMENT_NAME="ModelDeployment-CITADEL-SC"
 MODEL_NAME="IrisClassifier"
@@ -49,6 +52,7 @@ def run_rf(n_estimators: int, max_depth, seed: int):
 
 
 def main():
+    setup_mlflow()
     mlflow.set_experiment(EXPERIMENT_NAME)
     runs=[("logreg",{"C":0.5,"seed":42}),("logreg",{"C":1.0,"seed":42}),("rf",{"n_estimators":200,"max_depth":None,"seed":42}),("rf",{"n_estimators":200,"max_depth":5,"seed":42})]
     for algo,params in runs:
@@ -64,7 +68,7 @@ def main():
             mlflow.log_metrics(metrics)
             mlflow.log_artifact(str(cm), artifact_path="plots")
             mlflow.log_artifact(str(mp), artifact_path="models_raw")
-            mlflow.sklearn.log_model(model, name=MODEL_NAME)
+            mlflow.sklearn.log_model(model, artifact_path="model")
     print("✅ Terminé. Ouvrez MLflow UI pour comparer.")
 if __name__=="__main__":
     main()

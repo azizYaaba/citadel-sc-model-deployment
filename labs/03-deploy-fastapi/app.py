@@ -12,12 +12,12 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 sys.path.append(str(ROOT_DIR))
 from shared.data import FEATURE_COLUMNS
 from shared.metrics import latency_stats
+from shared.mlflow_config import setup_mlflow
 
 MODEL_NAME=os.getenv("MODEL_NAME","IrisClassifier")
 MODEL_STAGE=os.getenv("MODEL_STAGE","Production")
 
-mlflow.set_tracking_uri("sqlite:////Users/abdoul.bonkoungou/Downloads/citadel-sc-model-deployment/mlflow.db")
-mlflow.set_registry_uri("sqlite:////Users/abdoul.bonkoungou/Downloads/citadel-sc-model-deployment/mlflow.db")
+
 
 app=FastAPI(title="Iris Model API", version="1.0.0")
 _model=None
@@ -40,6 +40,7 @@ def load_model() -> Any:
 
 @app.on_event("startup")
 def _startup():
+    setup_mlflow()
     global _model
     _model=load_model()
 

@@ -1,11 +1,20 @@
 from __future__ import annotations
 import mlflow
 from mlflow.tracking import MlflowClient
+import sys
+from pathlib import Path
+
+# Add root directory to sys.path to allow importing shared modules
+ROOT_DIR = Path(__file__).resolve().parents[2]
+sys.path.append(str(ROOT_DIR))
+
+from shared.mlflow_config import setup_mlflow
 
 EXPERIMENT_NAME="ModelDeployment-CITADEL-SC"
 MODEL_NAME="IrisClassifier"
 
 def main():
+    setup_mlflow()
     client=MlflowClient()
     exp=client.get_experiment_by_name(EXPERIMENT_NAME)
     if exp is None:

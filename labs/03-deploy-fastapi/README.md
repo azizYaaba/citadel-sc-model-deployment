@@ -5,8 +5,7 @@ Le modèle `IrisClassifier` doit être en **Production** (Lab 02).
 
 ## Lancer l’API
 ```bash
-cd labs/03-deploy-fastapi
-uvicorn app:app --reload --port 8000
+uvicorn labs.03-deploy-fastapi.app:app --reload --port 8000
 ```
 
 ## Tester
